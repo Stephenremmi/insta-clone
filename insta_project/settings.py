@@ -72,7 +72,7 @@ TEMPLATES = [
 from decouple import config
 UPLOADCARE = {
     'pub_key': '64ba317bace04560c5b3',
-    'secret': config('SECRET'),
+    #'secret': config('SECRET'),
 }
 WSGI_APPLICATION = 'insta_project.wsgi.application'
 
