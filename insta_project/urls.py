@@ -21,11 +21,11 @@ from django_registration.backends.one_step.views import RegistrationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'', include('insta.urls')),
-    url(r'^register/$',views.register,name='register'),
-    url(r'^user_login/$',views.user_login,name='user_login'),
-    url(r'^accounts/login/$',views.user_login,name='user_login'),
-    url(r'^logout/$', views.user_logout, name='user_logout'),
+    path(r'', include('insta.urls')),
+    path(r'^register/$',views.register,name='register'),
+    path(r'^user_login/$',views.user_login,name='user_login'),
+    path(r'^accounts/login/$',views.user_login,name='user_login'),
+    path(r'^logout/$', views.user_logout, name='user_logout'),
     path('accounts/register/',
         RegistrationView.as_view(success_url='/accounts/login/'),
         name='django_registration_register'),

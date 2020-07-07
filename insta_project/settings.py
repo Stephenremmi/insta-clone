@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'insta',
     'bootstrap3',
-    'django_registration'
+    'django_registration',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +135,7 @@ STATICFILES_DIRS = [
 ]
 
 # Configure Django App for Heroku.
-django_heroku.settings(locals())
+
 
 LOGIN_URL = "/accounts/login/" # this is the name of the url
 LOGOUT_REDIRECT_URL = "/accounts/login/"
