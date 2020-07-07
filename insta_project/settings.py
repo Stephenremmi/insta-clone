@@ -133,3 +133,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
+
+LOGIN_URL = "/accounts/login/" # this is the name of the url
+LOGOUT_REDIRECT_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/" 
+
+REGISTRATION_OPEN= True
+ACCOUNT_ACTIVATION_DAYS = 5
