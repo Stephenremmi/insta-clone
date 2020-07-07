@@ -19,10 +19,4 @@ from insta import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'^admin/', admin.site.urls),
-    path(r'', include('insta.urls')),
-    path(r'^register/$',views.register,name='register'),
-    path(r'^user_login/$',views.user_login,name='user_login'),
-    path(r'^accounts/login/$',views.user_login,name='user_login'),
-    path(r'^logout/$', views.user_logout, name='user_logout'),
 ]

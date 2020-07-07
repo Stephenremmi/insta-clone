@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+#from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Post, User, UserProfile, Comment
 from .forms import UserForm, UserProfileForm, CommentForm, PostForm
@@ -25,14 +25,14 @@ def index(request):
 
             post.save()
             post_form = PostForm()
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect("index")
 
     else:
         post_form = PostForm()
 
     
 
-    return render(request, "instagrm/index.html", context={"posts":posts,
+    return render(request, "insta/index.html", context={"posts":posts,
                                                            "current_user":current_user,
                                                            "current_profile":current_profile,
                                                            "post_form":post_form,
@@ -58,7 +58,7 @@ def post(request, id):
     else:
         comment_form = CommentForm()
 
-    return render(request, "instagrm/post.html", context={"post":post,
+    return render(request, "insta/post.html", context={"post":post,
                                                           "current_user":current_user,
                                                           "current_profile":current_profile,
                                                           "comment_form":comment_form,
@@ -69,7 +69,7 @@ def like(request, id):
     post = Post.objects.get(id = id)
     post.likes += 1
     post.save()
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect("index")
 
 
 def like_post(request, id):
@@ -90,15 +90,15 @@ def search(request):
             posts = Post.objects.filter(profile__id=searched_user.id)[::-1]
             message = "{}".format(search_term)
         except DoesNotExist:
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect("index")
         
-        return render(request, "instagrm/search_results.html", context={"message":message,
+        return render(request, "insta/search_results.html", context={"message":message,
                                                                         "users":searched_user,
                                                                         "profiles":searched_profile,
                                                                         "posts":posts})
     else:
         message = "You have not searched for any photo"
-        return render(request, "instagrm/search_results.html", context={"message":message})
+        return render(request, "insta/search_results.html", context={"message":message})
 
 
 
@@ -107,7 +107,7 @@ def profile(request, id):
     user = User.objects.get(id=id)
     profile = UserProfile.objects.get(id=id)
     posts = Post.objects.filter(profile__id=id)[::-1]
-    return render(request, "instagrm/profile.html", context={"user":user,
+    return render(request, "insta/profile.html", context={"user":user,
                                                              "profile":profile,
                                                              "posts":posts})
 
@@ -124,12 +124,12 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
 
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect("index")
             else:
-                return HttpResponseRedirect(reverse("user_login")) #raise error/ flash
+                return HttpResponseRedirect("user_login")#raise error/ flash
 
         else:
-            return HttpResponseRedirect(reverse("user_login")) #raise error/ flash
+            return HttpResponseRedirect("user_login")#raise error/ flash
     else:
         return render(request, "auth/login.html", context={})
 
@@ -137,7 +137,7 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse("user_login"))
+    return HttpResponseRedirect("user_login")
 
 
 def register(request):
@@ -162,7 +162,7 @@ def register(request):
 
             registered = True
 
-            return HttpResponseRedirect(reverse("user_login"))
+            return HttpResponseRedirect("user_login")
 
         else:
             pass

@@ -43,3 +43,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+    def __str__(self):
+        return self.user
+
+    def save_comment(self):
+        self.save()
