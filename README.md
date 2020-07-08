@@ -73,5 +73,4 @@ You can provide feedback or raise any issues/ bugs through the following means:
 ## Live Site link
 You can view the live application by following this [link]().
 
-## License
-#### [*MIT License*](LICENSE)
+## [License](https://github.com/Stephenremmi/insta-clone/blob/master/LICENSE)
