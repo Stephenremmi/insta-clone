@@ -1,4 +1,4 @@
-%extends "insta/base.html"%}
+{%extends "insta/base.html"%}
 {%load static%}
 
 {%block content%}
@@ -10,7 +10,7 @@
             <div class="profile-image">
 
                 {%if profile.profile_pic%}
-                <img src="{{profile.profile_pic.cdn_url}}"
+                <img src="{{profile.profile_pic.url}}"
                     alt="" width="150" height="150" class="img-fluid">
                 {%else%}
                 <img src="{%static 'avatars/default.png'%}"
@@ -58,11 +58,28 @@
 <main>
 
     <div class="container">
-
+        <div class="col-lg-12">
+            <p>
+                <button style="border: solid 2px #333; padding: 1em;" class="btn btn-dark btn-block mb-4 mx-auto" type="button"
+                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    <i class="fas fa-upload"></i> Upload
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <form action="{%url 'profile' user.id%}" method="POST">
+                        {%csrf_token%}
+                        {{post_form.as_p}}
+                        <button style="border: solid 2px #333; padding: 5px" type="submit"
+                            class="btn btn-dark btn-block">Post</button>
+                    </form>
+                </div>
+            </div>    
         <div class="gallery">
             {%for post in posts%}
             <div class="gallery-item" tabindex="0">
-                <img src="{{post.image.cdn_url}}"
+                <img src="{{post.image.url}}"
                     class="gallery-image" alt="">
 
                 <div class="gallery-item-info">

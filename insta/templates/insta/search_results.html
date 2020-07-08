@@ -10,7 +10,7 @@
             <div class="profile-image">
 
                 {%if profile.profile_pic%}
-                <img src="{{profile.profile_pic.cdn_url}}" alt="" width="150" height="150" class="img-fluid">
+                <img src="{{profile.profile_pic.url}}" alt="" width="150" height="150" class="img-fluid">
                 {%else%}
                 <img src="{%static 'avatars/default.png'%}" alt="" width="150" height="150" class="img-fluid">
                 {%endif%}

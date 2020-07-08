@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,)
-    profile_pic = models.ImageField()
+    profile_pic = models.ImageField(upload_to='profile/')
     bio = models.TextField(blank=True)
     followers = models.ManyToManyField(User, related_name="followers", blank=True)
     following = models.ManyToManyField(User, related_name="following", blank=True)
@@ -15,7 +15,7 @@ class UserProfile(models.Model):
 
 
 class Post(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(upload_to='index/')
     name = models.CharField(max_length=144, blank=True, default="Post")
     caption = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -43,10 +43,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-
-
-    def __str__(self):
-        return self.user
 
     def save_comment(self):
         self.save()

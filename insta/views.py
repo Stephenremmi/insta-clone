@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-#from django.urls import reverse
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Post, User, UserProfile, Comment
 from .forms import UserForm, UserProfileForm, CommentForm, PostForm
@@ -10,7 +10,7 @@ from .forms import UserForm, UserProfileForm, CommentForm, PostForm
 @login_required
 def index(request):
     current_user = request.user
-    current_profile = UserProfile.objects.get(id = current_user.id)
+    current_profile = UserProfile.objects.filter(id = current_user.id)
     posts = Post.objects.all()[::-1]
     comments = Comment.objects.all()
 
@@ -84,13 +84,13 @@ def search(request):
     
     if request.method == "GET":
         search_term = request.GET.get("search")
-        searched_user = User.objects.get(username = search_term)
+        searched_user = User.objects.filter(username = search_term)
         try:
-            searched_profile = UserProfile.objects.get(id = searched_user.id)
+            searched_profile = UserProfile.objects.filter(id = searched_user.id)
             posts = Post.objects.filter(profile__id=searched_user.id)[::-1]
             message = "{}".format(search_term)
         except DoesNotExist:
-            return HttpResponseRedirect("index")
+            return HttpResponseRedirect(reverse("index"))
         
         return render(request, "insta/search_results.html", context={"message":message,
                                                                         "users":searched_user,
@@ -124,20 +124,20 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
 
-                return HttpResponseRedirect("index")
+                return HttpResponseRedirect(reverse("index"))
             else:
-                return HttpResponseRedirect("user_login")#raise error/ flash
+                return HttpResponseRedirect(reverse("user_login"))#raise error/ flash
 
         else:
-            return HttpResponseRedirect("user_login")#raise error/ flash
+            return HttpResponseRedirect(reverse("user_login"))#raise error/ flash
     else:
-        return render(request, "auth/login.html", context={})
+        return render(request, "registration/login.html", context={})
 
 
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect("user_login")
+    return HttpResponseRedirect(reverse("user_login"))
 
 
 def register(request):
@@ -162,7 +162,7 @@ def register(request):
 
             registered = True
 
-            return HttpResponseRedirect("user_login")
+            return HttpResponseRedirect(reverse("user_login"))
 
         else:
             pass
@@ -171,7 +171,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, "auth/register.html", context={"user_form":user_form,
+    return render(request, "registration/register.html", context={"user_form":user_form,
                                                           "profile_form":profile_form,
                                                           "registered":registered})
         

@@ -13,8 +13,8 @@
     {% csrf_token %}
     {% bootstrap_form user_form %}
     {% bootstrap_form profile_form %}
-    <button class="btn btn-lg btn-outline-dark btn-block" type="submit">Sign Up</button>
-    <p class="mt-3">Already have ab account? <a href="{%url 'user_login'%}">Login</a></p>
+    <button class="btn btn-lg btn-outline-dark btn-block" type="submit"><a href="{%url 'user_login'%}">Sign Up</a></button>
+    <p class="mt-3">Already have an account? <a href="{%url 'user_login'%}">Login</a></p>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 {%endblock%}
