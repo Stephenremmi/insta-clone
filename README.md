@@ -25,8 +25,8 @@ User can like a picture and leave a comment on it.
 [Stephen Remmi](https://github.com/Stephenremmi)
 
 ## Technologies Used
-* Python 3.7.4
-* Django 1.11.23
+* Python 3.6.9
+* Django 3.8
 * SQLite3
 * HTML5  
 * CSS3
